@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import { Toast, Button } from 'react-bootstrap';
 
 export class Todo extends Component {
     getStyle = () => {
@@ -15,14 +16,14 @@ export class Todo extends Component {
     render() {
         const { id, text} = this.props.todo;
         return (
-            <div style={this.getStyle()}>
-                <p>
+            <Toast>
+                <Toast.Body style={this.getStyle()}>
                     <input type="checkbox" onChange={this.props.toggleDone.bind(this, id)} /> 
                     {' '}
                     {text}
-                    <button style={btnStyle} onClick={this.props.removeTodo.bind(this, id)}>x</button>
-                </p>
-            </div>
+                    <Button variant={'danger'} size="sm" style={{float:"right"}} onClick={this.props.removeTodo.bind(this, id)} class="Close"></Button>
+                </Toast.Body>
+            </Toast>
         )
     }
 }
@@ -35,13 +36,4 @@ Todo.propTypes = {
 }
 
 
-const btnStyle = {
-    background: '#fe0000',
-    color: '#fff',
-    border: 'none',
-    padding: '5px 9px',
-    borderRadius: '50%',
-    cursor: 'pointer',
-    float: 'right'
-}
 export default Todo;
