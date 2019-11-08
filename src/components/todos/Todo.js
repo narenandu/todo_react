@@ -6,7 +6,7 @@ export class Todo extends Component {
     getStyle = () => {
        return {
             background: '#f4f4f4',
-            padding: '10px',
+            padding: '4px',
             borderBottom: '1px #ccc dotted',
             textDecoration: this.props.todo.done ? 'line-through' : 'none'
         }

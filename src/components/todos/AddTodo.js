@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {addTodo} from '../../actions/todoActions';
 import  { Form, Button, Col }  from 'react-bootstrap';
 
 export class AddTodo extends Component {
@@ -15,11 +16,12 @@ export class AddTodo extends Component {
     }
 
     onChange = (e) => this.setState({[e.target.name] : e.target.value});
+
     render() {
         return (
             <div className="d-flex flex-column">
                 <Form onSubmit={this.onSubmit} > 
-                    <Form.Row  style={{padding: '10px'}}> 
+                    <Form.Row  style={{padding: '8px'}}> 
                         <Col>
                             <Form.Control 
                                 name = "title"
@@ -41,8 +43,8 @@ export class AddTodo extends Component {
     }
 }
 
-AddTodo.propTypes = {
-    addTodo: PropTypes.func.isRequired
-}
+const mapStateToProps = state => ({
+    todos: state.todos
+});
 
-export default AddTodo;
+export default connect(mapStateToProps, {addTodo})(AddTodo);;
