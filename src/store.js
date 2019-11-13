@@ -1,28 +1,8 @@
 import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
-import uuid from 'uuid';
+import {initialState} from './reducers/todoReducer';
 
-export const initialState = {
-    todoList: [
-        {
-          id: uuid.v4(),
-          text: 'shopping',
-          done: false 
-        },
-        {
-          id: uuid.v4(),
-          text: 'office',
-          done: false
-        },
-        {
-          id: uuid.v4(),
-          text: 'drop kid at school',
-          done: false
-        }
-      ],
-    todo: {}
-};
 
 const middleWare = [thunk];
 

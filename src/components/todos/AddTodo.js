@@ -4,23 +4,13 @@ import {addTodo} from '../../actions/todoActions';
 import  { Form, Button, Col }  from 'react-bootstrap';
 
 export class AddTodo extends Component {
-    state = {
-        title: ''
-    }
 
-   
-    onSubmit = (e) => {
-        e.preventDefault();
-        this.props.addTodo(this.state.title);
-        this.setState({title: ''})
-    }
-
-    onChange = (e) => this.setState({[e.target.name] : e.target.value});
+    onChange = (e) => this.props.todo.text =  e.target.value;
 
     render() {
         return (
             <div className="d-flex flex-column">
-                <Form onSubmit={this.onSubmit} > 
+                <Form onSubmit={() => addTodo(this.props.todo)} > 
                     <Form.Row  style={{padding: '8px'}}> 
                         <Col>
                             <Form.Control 
@@ -28,7 +18,7 @@ export class AddTodo extends Component {
                                 type="text"
                                 placeholder="Add a Todo" 
                                 onChange={this.onChange}
-                                value={this.state.title}>
+                                value={this.props.todo.text}>
                             </Form.Control>
                         </Col>
                         <Col>
@@ -44,7 +34,7 @@ export class AddTodo extends Component {
 }
 
 const mapStateToProps = state => ({
-    todos: state.todos
+    todo: state.todo
 });
 
 export default connect(mapStateToProps, {addTodo})(AddTodo);;

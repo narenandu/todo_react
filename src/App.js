@@ -8,21 +8,7 @@ import About from './components/pages/About';
 import './App.css';
 
 class App extends Component {
-
-  toggleDone = (id) => {
-    this.setState({ todoList: this.state.todoList.map( todo => {
-      if(todo.id === id) {
-        todo.done = !todo.done
-      }
-      return todo;
-    })});
-  }
-
-  removeTodo = (id) => {
-    this.setState({ 
-      todoList:[...this.state.todoList.filter(todo => todo.id !== id)]
-    });
-  }
+  
 
   render() {
     return (
@@ -33,7 +19,7 @@ class App extends Component {
             <Route exact path="/" render={props => (
               <React.Fragment>
                 <AddTodo />
-                <TodoList toggleDone={this.toggleDone} removeTodo={this.removeTodo}/>
+                <TodoList />
               </React.Fragment>
             )} />
             <Route path="/about" component={About} />
