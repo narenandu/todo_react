@@ -1,21 +1,32 @@
 import React, { Component } from 'react';
+import uuid from 'uuid';
 import {connect} from 'react-redux';
-import {addTodo} from '../../actions/todoActions';
+import {addTodo, addingTodo} from '../../actions/todoActions';
 import  { Form, Button, Col }  from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 export class AddTodo extends Component {
-    state = {
-        title: ''
+
+    onChange = (e) => {
+        const tempTodo = {
+            id: "",
+            text: e.target.value,
+            done: false
+        }
+        addingTodo(tempTodo);
     }
 
-   
     onSubmit = (e) => {
+        console.log("onSubmit: ");
+        console.log(this.props.todo.text);
         e.preventDefault();
-        this.props.addTodo(this.state.title);
-        this.setState({title: ''})
+        const newTodo = {
+            id: uuid.v4(),
+            text: this.props.todo.text,
+            done: false
+        }
+        addTodo(newTodo);
     }
-
-    onChange = (e) => this.setState({[e.target.name] : e.target.value});
 
     render() {
         return (
@@ -28,7 +39,7 @@ export class AddTodo extends Component {
                                 type="text"
                                 placeholder="Add a Todo" 
                                 onChange={this.onChange}
-                                value={this.state.title}>
+                                value={this.props.todo.text}>
                             </Form.Control>
                         </Col>
                         <Col>
@@ -43,8 +54,14 @@ export class AddTodo extends Component {
     }
 }
 
+
+AddTodo.propTypes = {
+    addTodo: PropTypes.func.isRequired,
+    addingTodo: PropTypes.func.isRequired,
+}
+
 const mapStateToProps = state => ({
-    todos: state.todos
+    todo: state.todo
 });
 
-export default connect(mapStateToProps, {addTodo})(AddTodo);;
+export default connect(mapStateToProps, {addTodo, addingTodo})(AddTodo);;

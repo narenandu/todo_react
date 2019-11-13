@@ -14,14 +14,14 @@ export class Todo extends Component {
 
 
     render() {
-        const { id, text} = this.props.todo;
+        const text = this.props.todo.text;
         return (
             <Toast>
                 <Toast.Body style={this.getStyle()}>
-                    <input type="checkbox" onChange={this.props.toggleDone.bind(this, id)} /> 
+                    <input type="checkbox" /> 
                     {' '}
                     {text}
-                    <Button variant={'danger'} size="sm" style={{float:"right"}} onClick={this.props.removeTodo.bind(this, id)} class="Close"></Button>
+                    <Button variant={'danger'} size="sm" style={{float:"right"}} className="Close"></Button>
                 </Toast.Body>
             </Toast>
         )
@@ -30,9 +30,7 @@ export class Todo extends Component {
 
 // PropTypes
 Todo.propTypes = {
-    todo: PropTypes.object.isRequired,
-    toggleDone: PropTypes.func.isRequired,
-    removeTodo: PropTypes.func.isRequired,    
+    todo: PropTypes.object.isRequired
 }
 
 
