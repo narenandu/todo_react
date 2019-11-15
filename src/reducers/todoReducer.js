@@ -1,5 +1,5 @@
 import uuid from 'uuid';
-import {ADD_TODO, FETCH_TODOS} from '../actions/types';
+import {ADD_TODO, FETCH_TODOS, ADDING_TODO} from '../actions/types';
 
 export const initialState = {
   todos: [
@@ -20,9 +20,6 @@ export const initialState = {
       }
     ],
   todo: {
-    id: uuid.v4(),
-    text: '',
-    done: false
   }
 };
 
@@ -30,10 +27,12 @@ export const initialState = {
 export default function(state = initialState, action){
     switch(action.type){
         case FETCH_TODOS:
-            return [...state.todos]
+            return {todos: [...state.todos], todo: state.todo};
         case ADD_TODO:
-            state.todo.text = action.payload;
-            return [...state.todos, state.todo];
+            return {todos: [...state.todos], todo: action.payload};
+        case ADDING_TODO:
+            console.log("... here in reducer addingtodo");
+            return {todos: [...state.todos], todo: action.payload};
         // case REMOVE_TODO:
         //     return [...state.todos.filter(todo => todo.id !== action.payload)]
         default:

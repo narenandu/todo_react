@@ -1,16 +1,34 @@
 import React, { Component } from 'react';
+import uuid from 'uuid';
 import {connect} from 'react-redux';
-import {addTodo} from '../../actions/todoActions';
+import {addTodo, addingTodo} from '../../actions/todoActions';
 import  { Form, Button, Col }  from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 export class AddTodo extends Component {
 
-    onChange = (e) => this.props.todo.text =  e.target.value;
+    onChange = (e) => {
+        const todo = e.target.value;
+        console.log(todo);
+        addingTodo();
+    }
+
+    onSubmit = (e) => {
+        console.log("onSubmit: ");
+        console.log(this.props.todo);
+        e.preventDefault();
+        const newTodo = {
+            id: uuid.v4(),
+            text: this.props.todo.text,
+            done: false
+        }
+        addTodo(newTodo);
+    }
 
     render() {
         return (
             <div className="d-flex flex-column">
-                <Form onSubmit={() => addTodo(this.props.todo)} > 
+                <Form onSubmit={this.onSubmit} > 
                     <Form.Row  style={{padding: '8px'}}> 
                         <Col>
                             <Form.Control 
@@ -33,8 +51,14 @@ export class AddTodo extends Component {
     }
 }
 
+
+AddTodo.propTypes = {
+    addTodo: PropTypes.func.isRequired,
+    addingTodo: PropTypes.func.isRequired,
+}
+
 const mapStateToProps = state => ({
     todo: state.todo
 });
 
-export default connect(mapStateToProps, {addTodo})(AddTodo);;
+export default connect(mapStateToProps, {addTodo, addingTodo})(AddTodo);;
