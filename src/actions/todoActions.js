@@ -1,24 +1,26 @@
-import {ADD_TODO, FETCH_TODOS, ADDING_TODO} from './types';
+import { ADD_TODO, FETCH_TODOS, ADDING_TODO } from './types';
 
 export const fetchTodos = () => dispatch => {
-    return(todoList => dispatch( {
+    return (todoList => dispatch({
         type: FETCH_TODOS,
-        payload: {}
+        payload: todoList
     }));
 };
 
 export const addTodo = (todo) => dispatch => {
     console.log("todo: " + todo);
-    dispatch( {
+    dispatch({
         type: ADD_TODO,
-        payload: todo 
+        payload: todo
     });
 };
 
-export const addingTodo = (todo) => dispatch => {
-    console.log("..addingTodo : " + todo);
-    dispatch({
-        type: ADDING_TODO,
-        payload: todo
-    });
-}
+export function addingTodo(todo) {
+
+    return function (dispatch) {
+        dispatch({
+            type: ADDING_TODO,
+            payload: todo
+        })
+    }
+};
